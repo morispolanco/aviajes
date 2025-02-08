@@ -44,23 +44,24 @@ option = st.sidebar.selectbox(
     ],
 )
 
-# Lógica para cada opción
+# Lógica para cada opción con botón de ejecución
 if option == "1. Consulta de Destinos Populares":
     st.header("Consulta de Destinos Populares")
-    destinos = query_dashscope("¿Cuáles son los destinos turísticos más populares del mundo?")
-    st.write(destinos)
+    if st.button("Ejecutar"):
+        destinos = query_dashscope("¿Cuáles son los destinos turísticos más populares del mundo?")
+        st.write(destinos)
 
 elif option == "2. Generador de Itinerarios":
     st.header("Generador de Itinerarios")
     destino = st.text_input("Ingresa el destino:")
-    if destino:
+    if st.button("Ejecutar") and destino:
         itinerario = query_dashscope(f"Genera un itinerario de 5 días para visitar {destino}.")
         st.write(itinerario)
 
 elif option == "3. Calculadora de Presupuesto":
     st.header("Calculadora de Presupuesto")
     presupuesto = st.number_input("Ingresa tu presupuesto total:", min_value=0, step=100)
-    if presupuesto:
+    if st.button("Ejecutar") and presupuesto > 0:
         distribucion = query_dashscope(f"Distribuye {presupuesto} USD en vuelos, alojamiento, comida y actividades.")
         st.write(distribucion)
 
@@ -68,21 +69,21 @@ elif option == "4. Traductor de Frases Útiles":
     st.header("Traductor de Frases Útiles")
     frase = st.text_input("Ingresa la frase a traducir:")
     idioma = st.text_input("Ingresa el idioma objetivo:")
-    if frase and idioma:
+    if st.button("Ejecutar") and frase and idioma:
         traduccion = query_dashscope(f"Traduce '{frase}' al {idioma}.")
         st.write(traduccion)
 
 elif option == "5. Clima en Destino":
     st.header("Clima en Destino")
     ciudad = st.text_input("Ingresa la ciudad:")
-    if ciudad:
+    if st.button("Ejecutar") and ciudad:
         clima = query_dashscope(f"¿Cómo es el clima en {ciudad}?")
         st.write(clima)
 
 elif option == "6. Recomendador de Hoteles":
     st.header("Recomendador de Hoteles")
     destino_hotel = st.text_input("Ingresa el destino:")
-    if destino_hotel:
+    if st.button("Ejecutar") and destino_hotel:
         hoteles = query_dashscope(f"Recomienda hoteles económicos en {destino_hotel}.")
         st.write(hoteles)
 
@@ -91,31 +92,31 @@ elif option == "7. Conversor de Monedas":
     cantidad = st.number_input("Ingresa la cantidad:", min_value=0, step=1)
     moneda_origen = st.text_input("Moneda origen (ej. USD):")
     moneda_destino = st.text_input("Moneda destino (ej. EUR):")
-    if cantidad and moneda_origen and moneda_destino:
+    if st.button("Ejecutar") and cantidad > 0 and moneda_origen and moneda_destino:
         conversion = query_dashscope(f"Convierte {cantidad} {moneda_origen} a {moneda_destino}.")
         st.write(conversion)
 
 elif option == "8. Planificador de Actividades":
     st.header("Planificador de Actividades")
     destino_actividades = st.text_input("Ingresa el destino:")
-    if destino_actividades:
+    if st.button("Ejecutar") and destino_actividades:
         actividades = query_dashscope(f"Sugiere actividades para hacer en {destino_actividades}.")
         st.write(actividades)
 
 elif option == "9. Guía Cultural":
     st.header("Guía Cultural")
     pais = st.text_input("Ingresa el país:")
-    if pais:
+    if st.button("Ejecutar") and pais:
         cultura = query_dashscope(f"Describe la cultura y costumbres de {pais}.")
         st.write(cultura)
 
 elif option == "10. Chat con Asistente Virtual":
     st.header("Chat con Asistente Virtual")
     pregunta = st.text_input("Haz una pregunta:")
-    if pregunta:
+    if st.button("Ejecutar") and pregunta:
         respuesta = query_dashscope(pregunta)
         st.write(respuesta)
 
 # Footer
 st.sidebar.markdown("---")
-st.sidebar.markdown("Desarrollado por [Tu Nombre o Empresa]")
+st.sidebar.markdown("Desarrollado por Moris Polanco")
