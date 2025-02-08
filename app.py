@@ -41,6 +41,11 @@ option = st.sidebar.selectbox(
         "8. Planificador de Actividades",
         "9. Guía Cultural",
         "10. Chat con Asistente Virtual",
+        "11. Comparador de Vuelos",
+        "12. Sugerencias de Restaurantes",
+        "13. Lista de Empaque",
+        "14. Información de Visados",
+        "15. Consejos de Seguridad",
     ],
 )
 
@@ -117,6 +122,45 @@ elif option == "10. Chat con Asistente Virtual":
         respuesta = query_dashscope(pregunta)
         st.write(respuesta)
 
-# Footer
+elif option == "11. Comparador de Vuelos":
+    st.header("Comparador de Vuelos")
+    origen = st.text_input("Ciudad de origen:")
+    destino_vuelo = st.text_input("Ciudad de destino:")
+    fecha = st.text_input("Fecha de salida (YYYY-MM-DD):")
+    if st.button("Ejecutar") and origen and destino_vuelo and fecha:
+        comparacion = query_dashscope(f"Compara vuelos desde {origen} a {destino_vuelo} para la fecha {fecha}.")
+        st.write(comparacion)
+
+elif option == "12. Sugerencias de Restaurantes":
+    st.header("Sugerencias de Restaurantes")
+    ciudad_restaurantes = st.text_input("Ingresa la ciudad:")
+    tipo_comida = st.text_input("Tipo de comida (ej. italiana, mexicana):")
+    if st.button("Ejecutar") and ciudad_restaurantes and tipo_comida:
+        restaurantes = query_dashscope(f"Sugiere restaurantes de {tipo_comida} en {ciudad_restaurantes}.")
+        st.write(restaurantes)
+
+elif option == "13. Lista de Empaque":
+    st.header("Lista de Empaque")
+    destino_empaque = st.text_input("Ingresa el destino:")
+    duracion = st.number_input("Duración del viaje (en días):", min_value=1, step=1)
+    if st.button("Ejecutar") and destino_empaque and duracion:
+        lista = query_dashscope(f"Crea una lista de empaque para un viaje de {duracion} días a {destino_empaque}.")
+        st.write(lista)
+
+elif option == "14. Información de Visados":
+    st.header("Información de Visados")
+    pais_visado = st.text_input("Ingresa el país:")
+    if st.button("Ejecutar") and pais_visado:
+        visado = query_dashscope(f"¿Qué requisitos de visado existen para viajar a {pais_visado}?")
+        st.write(visado)
+
+elif option == "15. Consejos de Seguridad":
+    st.header("Consejos de Seguridad")
+    destino_seguridad = st.text_input("Ingresa el destino:")
+    if st.button("Ejecutar") and destino_seguridad:
+        seguridad = query_dashscope(f"Proporciona consejos de seguridad para viajar a {destino_seguridad}.")
+        st.write(seguridad)
+
+# Footer con enlace a Hablemos Bien
 st.sidebar.markdown("---")
-st.sidebar.markdown("Desarrollado por Moris Polanco")
+st.sidebar.markdown("[Desarrollado por Hablemos Bien](https://hablemosbien.org)")
